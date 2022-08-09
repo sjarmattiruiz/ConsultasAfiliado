@@ -8,11 +8,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 //Probemos
 function App() {
-
-  const [usuarios, setUsuarios]= useState([]);
+  const [usuarios, setUsuarios]= useState("");
   const [tablaUsuarios, setTablaUsuarios]= useState([]);
   const [busqueda, setBusqueda]= useState("");
 
+  //Consume datos de js
 const peticionGet=async()=>{
   await axios.get("https://raw.githubusercontent.com/cerkvenihaxel/jsongit/master/db.json")
   .then(response=>{
@@ -22,11 +22,27 @@ const peticionGet=async()=>{
     console.log(error);
   })
 }
+const handleSearch = (data)=>{
+  //console.log(data);
+  setBusqueda(data);
+};
 
 const handleChange=e=>{
   setBusqueda(e.target.value);
-  filtrar(e.target.value);
+ filtrar(e.target.value);
 }
+
+const handleSubmit = e =>{
+  e.preventDefault();
+  console.log("clickeaste en buscar");
+
+  if(!busqueda){
+      alert("¡Datos incompletos!");
+      return;
+  }
+
+  handleSearch(busqueda);
+};
 
 const filtrar=(terminoBusqueda)=>{
   var resultadosBusqueda=tablaUsuarios.filter((elemento)=>{
@@ -59,17 +75,21 @@ peticionGet();
 
 <div className=".mr-md-3"> 
 
-    <div className='col'> 
-    <div className="App">
-      <div className="containerInput">
+    <div> 
+    <div>
+    <form onSubmit={handleSubmit}>
         <input
-          className="form-control inputBuscar"
-          value={busqueda}
-          placeholder="Búsqueda por nombre de afiliado"
-          onChange={handleChange}
+            className="form-control my-2"
+            type="text"
+            name="solicitud"
+            autoComplete="on"
+            placeholder="Búsqueda por nombre de afiliado"
+            value={busqueda}
+            onChange={handleChange}
         />
+        <button onClick="filtrar()">Buscar</button>
 
-    </div>
+    </form>
     </div>
 
 
@@ -88,7 +108,7 @@ peticionGet();
         </thead>
 
         <tbody>
-          {usuarios && 
+          {busqueda && 
           usuarios.map((usuario)=>(
             <tr key={usuario.id}>
               <td>{usuario.id}</td>
