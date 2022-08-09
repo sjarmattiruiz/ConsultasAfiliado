@@ -28,10 +28,10 @@ const handleSearch = (data)=>{
 };
 
 const handleChange=e=>{
-  setBusqueda(e.target.value);
+ setBusqueda(e.target.value);
  filtrar(e.target.value);
 }
-
+//Carga de datos
 const handleSubmit = e =>{
   e.preventDefault();
   console.log("clickeaste en buscar");
@@ -46,9 +46,7 @@ const handleSubmit = e =>{
 
 const filtrar=(terminoBusqueda)=>{
   var resultadosBusqueda=tablaUsuarios.filter((elemento)=>{
-    if(elemento.afiliado.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-    || elemento.medico.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-    ){
+    if(elemento.nroafiliado.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())){
       return elemento;
     }
   });
@@ -75,27 +73,35 @@ peticionGet();
 
 <div className=".mr-md-3"> 
 
-    <div> 
-    <div>
-    <form onSubmit={handleSubmit}>
+    <div className="App"> 
+    <div class="w-auto p-3">
+      <div class="center-block">
+    <form onSubmit={handleSubmit} class="form-inline" role="form">
+        <div class="form-group mx-sm-3 mb-2 w-auto p-3">
         <input
-            className="form-control my-2"
+            className="form-control"
             type="text"
             name="solicitud"
             autoComplete="on"
-            placeholder="Búsqueda por nombre de afiliado"
+            placeholder="Búsqueda por nombre o número de afiliado"
             value={busqueda}
             onChange={handleChange}
         />
-        <button onClick="filtrar()">Buscar</button>
-
+        <div class="input-group-append">
+        <span class="input-group-btn">
+        <button type="submit" class="btn btn-default">Buscar</button>
+        </span>
+        </div>
+        </div>
     </form>
+    
+    </div>
     </div>
 
 
 <div className={styles.table}> 
     <div className="table-responsive">
-      <table className="table table-sm table-bordered">
+      <table className="table table-sm table-bordered ">
         <thead>
           <tr>
             <th>ID</th>
@@ -108,7 +114,7 @@ peticionGet();
         </thead>
 
         <tbody>
-          {busqueda && 
+          {busqueda.length===11 && 
           usuarios.map((usuario)=>(
             <tr key={usuario.id}>
               <td>{usuario.id}</td>
