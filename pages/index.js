@@ -74,7 +74,7 @@ peticionGet();
     <div className="w-auto p-3">
       <div className="center-block">
     <form onSubmit={handleSubmit} className="form-inline" role="form">
-        <div class="form-group mx-sm-3 mb-2 w-auto p-3">
+        <div className="form-group mx-sm-3 mb-2 w-auto p-3">
         <input
             className="form-control"
             type="text"
