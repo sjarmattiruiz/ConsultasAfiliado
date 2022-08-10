@@ -26,6 +26,7 @@
   color: black;
   background: white;
   border-color: grey;
+  align-text: center;
 }
 
 .table th{
