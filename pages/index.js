@@ -71,9 +71,9 @@ peticionGet();
 <div className=".mr-md-3"> 
 
     <div className="App"> 
-    <div class="w-auto p-3">
-      <div class="center-block">
-    <form onSubmit={handleSubmit} class="form-inline" role="form">
+    <div className="w-auto p-3">
+      <div className="center-block">
+    <form onSubmit={handleSubmit} className="form-inline" role="form">
         <div class="form-group mx-sm-3 mb-2 w-auto p-3">
         <input
             className="form-control"
@@ -84,9 +84,9 @@ peticionGet();
             value={busqueda}
             onChange={handleChange}
         />
-        <div class="input-group-append">
-        <span class="input-group-btn">
-        <button type="submit" class="btn btn-default">Buscar</button>
+        <div className="input-group-append">
+        <span className="input-group-btn">
+        <button type="submit" className="btn btn-default">Buscar</button>
         </span>
         </div>
         </div>
