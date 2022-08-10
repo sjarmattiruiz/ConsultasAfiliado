@@ -80,7 +80,7 @@ peticionGet();
             type="text"
             name="solicitud"
             autoComplete="on"
-            placeholder="Búsqueda por nombre o número de afiliado"
+            placeholder="Búsqueda por número de afiliado"
             value={busqueda}
             onChange={handleChange}
         />
