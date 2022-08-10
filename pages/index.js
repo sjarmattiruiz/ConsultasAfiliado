@@ -106,8 +106,8 @@ peticionGet();
             <th>Nro de afiliado</th>
             <th>Médico</th>
             <th>Clínica</th>
-            <th>Estado Solicitud</th>
             <th>Estado Paciente</th>
+            <th>Estado Solicitud</th>
           </tr>
         </thead>
 
