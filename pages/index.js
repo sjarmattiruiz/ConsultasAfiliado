@@ -14,7 +14,7 @@ function App() {
 
   //Consume datos de js
 const peticionGet=async()=>{
-  await axios.get("https://raw.githubusercontent.com/cerkvenihaxel/jsongit/master/db.json")
+  await axios.get("https://raw.githubusercontent.com/sjarmattiruiz/jsondb/f5a1c71d54fb11e079d69153d1436d1080c0d5a9/db.json")
   .then(response=>{
     setUsuarios(response.data);
     setTablaUsuarios(response.data);
@@ -45,11 +45,8 @@ const handleSubmit = e =>{
 };
 
 const filtrar=(terminoBusqueda)=>{
-  var resultadosBusqueda=tablaUsuarios.filter((elemento)=>{
-    if(elemento.nroafiliado.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())){
-      return elemento;
-    }
-  });
+  var resultadosBusqueda=tablaUsuarios.filter( elemento =>
+    elemento.nroafiliado.toString() === terminoBusqueda);
   setUsuarios(resultadosBusqueda);
 }
 
@@ -106,6 +103,7 @@ peticionGet();
           <tr>
             <th>ID</th>
             <th>Nombre de afiliado</th>
+            <th>Nro de afiliado</th>
             <th>Médico</th>
             <th>Clínica</th>
             <th>Estado Solicitud</th>
@@ -119,6 +117,7 @@ peticionGet();
             <tr key={usuario.id}>
               <td>{usuario.id}</td>
               <td>{usuario.afiliado}</td>
+              <td>{usuario.nroafiliado}</td>
               <td>{usuario.medico}</td>
               <td>{usuario.clinica}</td>
               <td>{usuario.estado_paciente}</td>
