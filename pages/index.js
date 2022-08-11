@@ -14,7 +14,7 @@ function App() {
 
   //Consume datos de js
 const peticionGet=async()=>{
-  await axios.get("https://raw.githubusercontent.com/sjarmattiruiz/jsondb/f5a1c71d54fb11e079d69153d1436d1080c0d5a9/db.json")
+  await axios.get("https://raw.githubusercontent.com/sjarmattiruiz/jsondb/main/db.json")
   .then(response=>{
     setUsuarios(response.data);
     setTablaUsuarios(response.data);
