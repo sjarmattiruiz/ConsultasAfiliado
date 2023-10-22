@@ -8,9 +8,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 //Probemos
 function App() {
-  const [usuarios, setUsuarios]= useState("");
-  const [tablaUsuarios, setTablaUsuarios]= useState([]);
-  const [busqueda, setBusqueda]= useState("");
+  const [usuarios, setUsuarios] = useState([]);
+  const [busqueda, setBusqueda] = useState("");
+  const [resultadosFiltrados, setResultadosFiltrados] = useState([]);
+  
 
   //Consume datos de js
 const peticionGet=async()=>{
@@ -31,25 +32,25 @@ const handleChange=e=>{
  setBusqueda(e.target.value);
  filtrar(e.target.value);
 }
-//Carga de datos
-const handleSubmit = e =>{
+const handleSubmit = (e) => {
   e.preventDefault();
   console.log("clickeaste en buscar");
 
-  if(!busqueda){
-      alert("¡Datos incompletos!");
-      return;
+  if (!busqueda) {
+    alert("¡Datos incompletos!");
+    return;
   }
 
   handleSearch(busqueda);
 };
 
-const filtrar=(terminoBusqueda)=>{
-  var resultadosBusqueda=tablaUsuarios.filter( elemento =>
-    elemento.nroafiliado.toString() === terminoBusqueda);
-  setUsuarios(resultadosBusqueda);
-}
-
+setResultadosFiltrados(
+  usuarios.filter(
+    (usuario) =>
+      usuario.dni.includes(busqueda) || usuario.name.includes(busqueda)
+  )
+);
+};
 useEffect(()=>{
 peticionGet();
 },[])
@@ -109,17 +110,24 @@ peticionGet();
         </thead>
 
         <tbody>
-          {busqueda && 
-          usuarios.map((usuario)=>(
-            <tr key={usuario.id}>
-              <td>{usuario.id}</td>
-              <td>{usuario.name}</td>
-              <td>{usuario.dni}</td>
-              <td>{usuario.coordi}</td>
-              
-            </tr>
-          ))}
-        </tbody>
+  {busqueda
+    ? resultadosFiltrados.map((usuario) => (
+        <tr key={usuario.id}>
+          <td>{usuario.id}</td>
+          <td>{usuario.name}</td>
+          <td>{usuario.dni}</td>
+          <td>{usuario.coordi}</td>
+        </tr>
+      ))
+    : usuarios.map((usuario) => (
+        <tr key={usuario.id}>
+          <td>{usuario.id}</td>
+          <td>{usuario.name}</td>
+          <td>{usuario.dni}</td>
+          <td>{usuario.coordi}</td>
+        </tr>
+      ))}
+</tbody>
       </table>
      </div>
 </div>
