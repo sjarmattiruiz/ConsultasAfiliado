@@ -109,7 +109,7 @@ peticionGet();
         </thead>
 
         <tbody>
-          {busqueda.length===11 && 
+          {busqueda && 
           usuarios.map((usuario)=>(
             <tr key={usuario.id}>
               <td>{usuario.id}</td>
