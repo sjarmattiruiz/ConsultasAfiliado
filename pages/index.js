@@ -8,21 +8,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 //Probemos
 function App() {
-  const [usuarios, setUsuarios] = useState([]);
-  const [busqueda, setBusqueda] = useState("");
-  const [resultadosFiltrados, setResultadosFiltrados] = useState([]);
-  
+  const [usuarios, setUsuarios]= useState([]);
+  const [tablaUsuarios, setTablaUsuarios]= useState([]);
+  const [busqueda, setBusqueda]= useState("");
 
   //Consume datos de js
-const peticionGet=async()=>{
-  await axios.get("https://raw.githubusercontent.com/sjarmattiruiz/jsondb/main/db.json")
-  .then(response=>{
-    setUsuarios(response.data);
-    setTablaUsuarios(response.data);
-  }).catch(error=>{
-    console.log(error);
-  })
-}
+  const peticionGet = async () => {
+    try {
+      const response = await axios.get("https://raw.githubusercontent.com/sjarmattiruiz/jsondb/main/db.json");
+      const data = response.data;
+      setUsuarios(data);
+      setTablaUsuarios(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 const handleSearch = (data)=>{
   //console.log(data);
   setBusqueda(data);
@@ -32,39 +32,50 @@ const handleChange=e=>{
  setBusqueda(e.target.value);
  filtrar(e.target.value);
 }
-const handleSubmit = (e) => {
+//Carga de datos
+const handleSubmit = e =>{
   e.preventDefault();
   console.log("clickeaste en buscar");
 
-  if (!busqueda) {
-    alert("¡Datos incompletos!");
-    return;
+  if(!busqueda){
+      alert("¡Datos incompletos!");
+      return;
   }
 
   handleSearch(busqueda);
 };
 
-setResultadosFiltrados(
-  usuarios.filter(
-    (usuario) =>
-      usuario.dni.includes(busqueda) || usuario.name.includes(busqueda)
-  )
-);
+const filtrar = (terminoBusqueda) => {
+  var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
+    // Verificar si el nombre (name) o el número de documento (dni) coinciden con el término de búsqueda
+    if (elemento) {
+      const nombreCoincide = elemento.name && elemento.name.toLowerCase().includes(terminoBusqueda.toLowerCase());
+      const dniCoincide = elemento.dni && elemento.dni.toString().includes(terminoBusqueda);
+
+      // Retornar verdadero si se encuentra una coincidencia en el nombre o el dni
+      return nombreCoincide || dniCoincide;
+    }
+    return false;
+  });
+  setUsuarios(resultadosBusqueda);
 };
+
+
 useEffect(()=>{
 peticionGet();
 },[])
 
   return (
  <div><Head>
- <title>Asistencia</title>
+ <title>Asistencia Elecciones</title>
  <meta name="description" content="Generado por Inescio LR" />
  <link rel="icon" href="/inescio logo.png" />
 </Head>
 
 <main className={styles.main}>
+   <Image  src="/riojalogo.png" width="360" height="80.7" />
    <h1 className={styles.title}>
-     Listado General
+     Consultá en el listado.
    </h1>
    </main>
 
@@ -101,33 +112,34 @@ peticionGet();
       <table className="table table-sm table-bordered ">
         <thead>
           <tr>
-            <th>Número</th>
-            <th>Nombre Completo</th>
-            <th>DNI</th>
+            <th>ID</th>
+            <th>Nombre completo</th>
+            <th>Documento</th>
             <th>Coordinador</th>
-
           </tr>
         </thead>
 
         <tbody>
-  {busqueda
-    ? resultadosFiltrados.map((usuario) => (
-        <tr key={usuario.id}>
-          <td>{usuario.id}</td>
-          <td>{usuario.name}</td>
-          <td>{usuario.dni}</td>
-          <td>{usuario.coordi}</td>
-        </tr>
-      ))
-    : usuarios.map((usuario) => (
-        <tr key={usuario.id}>
-          <td>{usuario.id}</td>
-          <td>{usuario.name}</td>
-          <td>{usuario.dni}</td>
-          <td>{usuario.coordi}</td>
-        </tr>
-      ))}
-</tbody>
+          {busqueda
+          ?
+          usuarios.map((usuario)=>(
+            <tr key={usuario.id}>
+              <td>{usuario.id}</td>
+              <td>{usuario.name}</td>
+              <td>{usuario.dni}</td>
+              <td>{usuario.coordi}</td>
+              
+            </tr>
+          ))
+          : usuarios.map((usuario) => (
+            <tr key={usuario.id}>
+              <td>{usuario.id}</td>
+              <td>{usuario.name}</td>
+              <td>{usuario.dni}</td>
+              <td>{usuario.coordi}</td>
+            </tr>
+               ))}
+        </tbody>
       </table>
      </div>
 </div>
@@ -135,7 +147,7 @@ peticionGet();
 </div>
     </div> 
   );
-
+}
 
 export default App;
 
