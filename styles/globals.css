@@ -21,6 +21,6 @@ a {
   }
   body {
     color: blue;
-    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,246,160,1) 60%, rgba(255,211,61,1) 100%);
+    background: blue;
   }
 }
