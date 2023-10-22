@@ -135,7 +135,7 @@ peticionGet();
 </div>
     </div> 
   );
-}
+
 
 export default App;
 
