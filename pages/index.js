@@ -57,8 +57,8 @@ peticionGet();
   return (
  <div><Head>
  <title>Asistencia</title>
- <meta name="description" content="Generado por Heap LR" />
- <link rel="icon" href="/SISCON.png" />
+ <meta name="description" content="Generado por Inescio LR" />
+ <link rel="icon" href="/inescio logo.png" />
 </Head>
 
 <main className={styles.main}>
@@ -100,7 +100,7 @@ peticionGet();
       <table className="table table-sm table-bordered ">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>Número</th>
             <th>Nombre Completo</th>
             <th>DNI</th>
             <th>Coordinador</th>
