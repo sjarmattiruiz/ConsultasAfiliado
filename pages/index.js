@@ -56,15 +56,14 @@ peticionGet();
 
   return (
  <div><Head>
- <title>SISCON</title>
+ <title>Asistencia</title>
  <meta name="description" content="Generado por Heap LR" />
  <link rel="icon" href="/SISCON.png" />
 </Head>
 
 <main className={styles.main}>
-   <Image  src="/SISCON.png" width="360" height="80.7" />
    <h1 className={styles.title}>
-     Seguimiento de solicitud de prótesis
+     Listado General
    </h1>
    </main>
 
@@ -80,7 +79,7 @@ peticionGet();
             type="text"
             name="solicitud"
             autoComplete="on"
-            placeholder="Búsqueda por número de afiliado"
+            placeholder="Búsqueda por número de documento"
             value={busqueda}
             onChange={handleChange}
         />
@@ -102,12 +101,10 @@ peticionGet();
         <thead>
           <tr>
             <th>ID</th>
-            <th>Nombre de afiliado</th>
-            <th>Nro de afiliado</th>
-            <th>Médico</th>
-            <th>Clínica</th>
-            <th>Estado Paciente</th>
-            <th>Estado Solicitud</th>
+            <th>Nombre Completo</th>
+            <th>DNI</th>
+            <th>Coordinador</th>
+
           </tr>
         </thead>
 
@@ -116,12 +113,9 @@ peticionGet();
           usuarios.map((usuario)=>(
             <tr key={usuario.id}>
               <td>{usuario.id}</td>
-              <td>{usuario.afiliado}</td>
-              <td>{usuario.nroafiliado}</td>
-              <td>{usuario.medico}</td>
-              <td>{usuario.clinica}</td>
-              <td>{usuario.estado_paciente}</td>
-              <td>{usuario.estado_solicitud}</td>
+              <td>{usuario.name}</td>
+              <td>{usuario.dni}</td>
+              <td>{usuario.coordi}</td>
               
             </tr>
           ))}
